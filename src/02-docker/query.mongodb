@@ -1,0 +1,16 @@
+/** Forma de ingresar nuevos Documents en MongoDB
+* Paste one or more documents here
+{
+  "_id": {
+    "$oid": "649e72b7cdd30c639eb50efa"
+  }, 
+  "name": "Product 1",
+  "price": 1200
+}
+*/
+
+
+
+// Usamos la base de datos "platzi_store" creada con Docker
+use("platzi_store")
+db.products.find()                                            // El método ".find()" va a devolver todos los Documents que estan en la Collection "products"
