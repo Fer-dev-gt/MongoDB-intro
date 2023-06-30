@@ -1,3 +1,8 @@
-use("sample_training")
+// Ejemplo de un Query simple, buscamos todos los registros que tiene 'NY' como estado
 
-db.zips.find({ state: "NY"}).count()
+use("sample_training")                            // Le indicamos que base de datos utilizar
+db.zips.find({ state: "NY"})
+
+
+use("sample_training")
+db.zips.find({ state: "NY"}).count()              // Usamos método ".count()" para mostrar el numero de registros que cumplen la condición de búsqueda
