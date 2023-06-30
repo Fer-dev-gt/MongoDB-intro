@@ -1,12 +1,12 @@
-version: '3.9'
+version: '3.9'                                          # versión de la documentación de este formato yaml
 
-services:
-  mongodb:
-    image: mongo:5.0
-    ports:
+services:                                               # En servicios es donde corremos una API, una Base de Datos etc  
+  mongodb:                                              # Le podemos poner cualquier nombre, preferiblemente el nombre de la Base de Datos a utilizar
+    image: mongo:5.0                                    # Le paso la "imagen" de mongoDB que quiero utilizar
+    ports:                                              # Elegimos los puertos por los cuales nos comunicaremos con nuestra Base de Datos, usamos el puerto definido por Docker "27017"
       - 27017:27017
-    environment:
+    environment:                                        # Definimos las variables de ambiente como el USERNAME y PASSWORD
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root123
-    volumes:
+    volumes:                                            # Hacemos que los volumenes guarden el "estado" de los datos en la carpeta indicada
       - ./mongo_data:/data/db
