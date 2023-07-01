@@ -1,0 +1,3 @@
+// Mostrará los ids generados automaticamente y los que yo personalicé 
+use("platzi_store")
+db.products.find()

@@ -1,0 +1,27 @@
+// Si no esta creada la Base de Datos, MondoDB la creará
+use("platzi_store")
+
+// Esto tambien aplica con las Collections, si no estan creadas se crean automaticamente
+db.products.insertOne({                                             // El método ".insertOne()" nos permite agregar un nuevo documento
+  name: "Product 1",
+  price: 1000
+})
+
+db.products.insertOne({
+  name: "Product 2",
+  price: 100
+})
+
+
+// Podemos crear Objects Ids personalizados
+db.products.insertOne({
+  _id: 1,
+  name: "Product 1",
+  price: 100
+})
+
+db.products.insertOne({
+  _id: 2,
+  name: "Product 1",
+  price: 100
+})
