@@ -1,0 +1,60 @@
+use("platzi_store")
+
+// MUCHO CUIDADO con el método ".drop()" ya que vacia toda la Collection
+db.products.drop()
+
+// El método "insertMany()" para agregar varios documentos, como parametro mandas un Array de Documents
+
+
+
+// Si inserto un Array con Documents y existen duplicados, muestra error, para la ejecución y no inserta los datos duplicados
+db.products.insertMany([
+  {
+    _id: 1,
+    name: "Product 1",
+    price: 100
+  },
+  {
+    _id: 2,
+    name: "Product 2",
+    price: 20
+  },
+  {
+    _id: 1,
+    name: "Product 3",
+    price: 120
+  },
+  {
+    _id: 4,
+    name: "Product 4",
+    price: 400
+  }
+])
+
+// Forma para que inserte los Documents incluso si hay un error por ID duplicado
+db.products.insertMany([
+  {
+    _id: 1,
+    name: "Product 1",
+    price: 100
+  },
+  {
+    _id: 2,
+    name: "Product 2",
+    price: 20
+  },
+  {
+    _id: 1,
+    name: "Product 3",
+    price: 120
+  },
+  {
+    _id: 4,
+    name: "Product 4",
+    price: 400
+  }
+], {
+  ordered: false                                                // Con esta instrucción hacemos siga registrando los Documents incluso si hay un error por ID duplicado 
+})
+
+db.products.find()
