@@ -1,0 +1,18 @@
+use("sample_training")
+
+
+// Cuenta el número de Documents que tienen "CLEVELAND" por cuidad
+db.zips.find({ city: "CLEVELAND"}).count()
+
+
+// Voy a hacer "updateMany()" a todos los Documents con city: "CLEVELAND" y les aumento su población en 1000
+db.zips.updateMany(
+  // query
+  { city: "CLEVELAND"},
+  // update -> operators
+  {
+    $inc : {
+      pop: 1000
+    }
+  }
+)

@@ -1,0 +1,14 @@
+use("sample_training")
+
+
+// Voy a crear un nuevo campo a todos los Documents que tengan "CLEVELAND" como ciudad
+db.zips.updateMany(
+  // query
+  { city: "CLEVELAND"},
+  // update -> operators
+  {
+    $set : {
+      newAttribute: "hello"
+    }
+  }
+)

@@ -1,0 +1,14 @@
+use("sample_training")
+
+
+// Voy a renombrar el Campo de todos los Documents que cumplan con la condición usando el Operador $rename
+db.zips.updateMany(
+  // query
+  { city: "CLEVELAND"},
+  // update -> operators
+  {
+    $rename : {
+      newAttribute: "new_name"
+    }
+  }
+)

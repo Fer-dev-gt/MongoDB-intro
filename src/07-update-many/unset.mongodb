@@ -1,0 +1,14 @@
+use("sample_training")
+
+
+// Voy a eliminar el Campo seleccionado a todos los Documents que cumplen la condición
+db.zips.updateMany(
+  // query
+  { city: "CLEVELAND"},
+  // update -> operators
+  {
+    $unset : {
+      new_name: ""
+    }
+  }
+)
