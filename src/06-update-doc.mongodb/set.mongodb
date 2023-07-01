@@ -1,0 +1,17 @@
+// Actualizamos un Document
+use("platzi_store")
+
+
+// Para actualizar un Document podemos usar el método "updateOne()" con el id del Document a cambiar y los datos para actualizar junto con el Operador "$set:{}"
+db.products.updateOne(
+  // Primero va el "query"
+  {_id: 2},
+  // Y luego van los datos a actualizar con un Operator, change -> operators
+   {
+    $set: {
+      name: 'Changed name',
+      price: 3000,
+      tags: ['A', 'B', 'C']                               // Dentro de un "updateOne()" podemos cambiar varios Campos e incluso agregar nuevos Campos como el de "tags" que es un Array
+    }
+  }
+)

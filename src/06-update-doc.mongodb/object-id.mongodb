@@ -1,0 +1,12 @@
+// Usaremos la función "ObjectId(id-hash)" 
+use("platzi_store")
+
+// Para actualizar un Document con un ID que genero MongoDB (es un hash) tenemos que usar la función "ObjectId(id-hash)" para que pueda localizar y actualizar el Document
+db.products.updateOne(
+  {_id: ObjectId("649f9971847d964cbc28e5dd")},                // Si no usamos la función ObjectId() no devuelve error, simplemente muestra que no pudo localizar a dicho Document
+   {
+    $inc: {
+      price: 100,
+    }
+  }
+)

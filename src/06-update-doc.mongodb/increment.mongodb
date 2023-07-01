@@ -1,0 +1,14 @@
+// Incrementarmos el valor de un Campo por X cantidad
+use("platzi_store")
+
+// Vamor a actualizar el Document con el id 2 usando el Operador "$inc" para incrementar un número en X cantidad
+db.products.updateOne(
+  // query
+  {_id: 2},
+  // change -> operators
+   {
+    $inc: {
+      price: 100,
+    }
+  }
+)
