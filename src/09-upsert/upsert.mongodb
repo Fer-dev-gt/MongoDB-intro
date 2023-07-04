@@ -1,0 +1,28 @@
+// La palabra UPSERT en la mezcla de UPDATE e INSERT
+use("platzi_store")
+
+
+// Al usar "upsert" MongoDB averigua si existe ya un Document con las condiciones que le indicamos, si no existe crea un nuevo Document, si ya existe entonces agregara el valor al Array correspondiente
+db.iot.updateOne({
+  sensor: "A001",
+  date: "2022-01-04",                       // En este caso por ser la primer lectura de un nuevo dia, Upsert me creara un Document nuevo
+}, {
+  $push: {
+    readings: 3333
+  }
+}, {
+  upsert: true                              // Tenemos que agregar el "upsert" dentro de otras llaves despues del valor a insertar
+})
+
+
+// Al ser la segunda lectura del dia, "upsert" no va a crear un nuevo Document, simplemente lo agregar al Array indicado
+db.iot.updateOne({
+  sensor: "A001",
+  date: "2022-01-04",                       
+}, {
+  $push: {
+    readings: 3333
+  }
+}, {
+  upsert: true                              
+})

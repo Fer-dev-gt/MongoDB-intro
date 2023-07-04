@@ -1,0 +1,41 @@
+use("platzi_store")
+
+// Creamos un nuevo Document ya que el registro del aparato el es primero de un nuevo dia
+db.iot.insertOne({ 
+  sensor: "A001",
+  date: "2022-01-03",
+  readings: [1212]                                  // Al usar corchetes [] le decimos a MongoDB que cree un Array con los valores de adentro
+})
+
+
+// Este comando no es el ideal porque crea un nuevo Array dentro del Array ya existente
+db.iot.updateOne({
+  sensor: "A001",
+  date: "2022-01-03",
+}, {
+  $push: {
+    readings: [2323]
+  }
+})
+
+
+// Para eliminar un valor de un Array (incluyendo otros Arrays) usamos el Operator $pop
+db.iot.updateOne({
+  sensor: "A001",
+  date: "2022-01-03",
+}, {
+  $pop: {
+    readings: 1                                     // Si le indicamos "1" le decimos que borre el ultimo registro, si es "-1" borrará el primero
+  }
+})
+
+
+// Para no crear un "SubArray" tenemos que agregar el nuevo valor sin corchetes
+db.iot.updateOne({
+  sensor: "A001",
+  date: "2022-01-03",
+}, {
+  $push: {
+    readings: 2323
+  }
+})
