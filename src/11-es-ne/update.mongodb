@@ -1,0 +1,12 @@
+// Los Operatos $eq y $no son queries, asi que podemos usarlos para hacer un Update
+use("platzi_store")
+
+// Voy a incrementar en 10 a todos los Documents que no sean 20
+db.inventory.updateMany(
+  { qty: { $ne: 20}},                     // query - operator
+  {
+    $inc: {                               // update - operator
+      qty: 10
+    }
+  }
+)

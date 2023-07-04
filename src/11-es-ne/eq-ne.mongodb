@@ -1,0 +1,26 @@
+// $eq = equal, $ne = not equal
+use("platzi_store")
+
+// Usando $eq "implicitamente"
+db.inventory.find({ qty: 20})
+
+
+// Usando $eq de forma "explicita"
+db.inventory.find({ qty: { $eq: 20}})
+
+
+// Buscando dentro de un "SubDocumento/SubObjeto" 
+db.inventory.find({ "item.name" : "ab"})                // Al tratarse de un "Subdocument" tenemos que usar comillas para indicar el nombre del atributo
+
+db.inventory.find({ "item.code" : "123"})               // Otro ejemplo
+
+
+// Haciendo la busqueda de forma explicita
+db.inventory.find({ "item.name": { $eq: "ab"}})
+
+db.inventory.find({ "item.code": { $eq: "123"}})
+
+
+
+// Usando Not Equal $ne
+db.inventory.find({ qty: { $ne: 20}})                   // Me va a traer todos los Documents que no son 20
