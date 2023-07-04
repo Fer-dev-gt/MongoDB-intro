@@ -1,0 +1,33 @@
+// Hacemos un "Projection" en donde le decimos a MongoDB que campos mostrar y ocultar en nuestro resultados de los queries
+use("sample_training")
+
+db.trips.find(
+  // query
+  { tripduration: { $gte: 500} },
+  // projection
+  { tripduration: 1, usertype: 1}                           // Escribimos el nombre del campo que queremos mostrar y le colocamos un "1" que indica que lo muestre, si es un "0" significa que no lo muestro (solo se puede hacer implicitamente con el ID)
+)
+
+
+// Tambien en vez de usar 1 o 0 podemos usar true y false
+db.trips.find(
+  // query
+  { tripduration: { $gte: 500} },
+  // projection
+  { tripduration: true, usertype: true}
+)
+
+
+//Aqui aplicamos projection de forma explicita
+db.trips.find(
+  {tripduration:{$lte:500}, usertype:"Subscriber"}).projection(
+    {"tripduration":1, "end station name":1 }
+)
+
+
+//Aqui ademas agregue un sort que seria como un Order By
+db.trips.find(
+  {tripduration:{$lte:500}, usertype:"Subscriber"}).projection(
+    {"tripduration":1, "end station name":1 }).sort(
+      {tripduration:1}
+)
