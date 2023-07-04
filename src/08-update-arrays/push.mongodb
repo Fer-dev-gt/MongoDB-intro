@@ -1,0 +1,10 @@
+// Agregando elementos a un Array dentro de un Document
+
+use("platzi_store")
+
+db.inventory.updateOne({_id: 4},                        // Voy a actualizar solo un Document con el id 4
+  {
+    $push: {                                            // El Operator "push" solo sirve para Arrays y agrega un nuevo elemento al Array
+      tags: "headphones"
+    }
+  })

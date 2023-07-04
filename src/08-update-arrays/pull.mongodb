@@ -1,0 +1,30 @@
+// Eliminando elementos de un Array dentro de un Document usando el Operador "pull"
+
+use("platzi_store")
+
+db.inventory.updateOne({ _id: 4},                   // Eliminamos de un solo Documento
+  {
+    $pull: {
+      tags: "headphones"
+    }
+  })
+
+
+// Eliminamos campos de un Array en varios Documents al mismo tiempo
+db.inventory.updateMany({ },                        // Cuando dejamos las primeras llaves vacias le estamos diciendo a MongoDB que aplique el query a todos los Documents
+  {
+    $pull: {
+      tags: "book"
+    }
+  })
+
+
+// Eliminando varios elementos de un Array en varios Documents al mismo tiempo usando Operado $in 
+db.inventory.updateMany({ },
+  {
+    $pull:{
+      tags: {                                       // Para borrar varios elementos dentro de un Array usamos otro par de llaves y usamos el Operator "in" para declarar un Array [] con los valores a eliminar
+        $in: ["appliance", "school"]
+      }
+    }
+  })
