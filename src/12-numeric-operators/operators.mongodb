@@ -1,0 +1,35 @@
+// Queries para usar operator $gt, $gte, $lt y $lte
+// $gt = Greater Than, $gte = Greater Than or Equal, $lt = Less Than, $lte = Less Than or Equal
+
+use("platzi_store")
+
+// Using $gt (>) y $gte (>=)
+db.inventory.find({ qty: { $gt: 20 }})
+
+db.inventory.find({ qty: { $gte: 20 }})
+
+
+// Using $lt (<) y $lte (<=)
+db.inventory.find({ qty: { $lt: 20}})
+
+db.inventory.find({ qty: { $lte: 20}})
+
+
+// Usando varios Operators al mismo tiempo para definir un rango de busqueda
+db.inventory.find({ qty: { $gte: 25, $lte: 35}})                                      // Traemos los Documents que sean desde 25 hasta 30
+
+db.inventory.find({ qty: { $gte: 20, $lte: 25}})
+
+
+// Siendo más especificos al usar 2 condicionales
+db.inventory.find({
+  "item.code": "123",
+  qty: { $gte: 20, $lte: 25}
+})
+
+
+// Usando $ne
+db.inventory.find({
+  "item.code": { $ne: "123"},
+  qty: { $gte: 20, $lte: 25}
+})
