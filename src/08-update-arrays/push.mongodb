@@ -8,3 +8,16 @@ db.inventory.updateOne({_id: 4},                        // Voy a actualizar solo
       tags: "headphones"
     }
   })
+
+
+
+// Agregando varios elementos a un Array al mismo tiempo usando Operator $each: [Array de elementos]
+use("platzi_store")
+db.inventory.updateOne({ _id: 4},
+  {
+    $push:{
+      tags: {
+        $each: ["school", "wireless"]
+      }
+    }
+  })
