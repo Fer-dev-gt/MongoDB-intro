@@ -1,0 +1,28 @@
+use("platzi_store")
+
+// Usualmente cuando queremos hacer una busqueda de texto lo hacemos de esta manera, pero existen forma más eficientes como usando Regular Expressions
+db.inventory.find({"item.description": "Single line description."})
+
+
+// Haciendo busqueda de un patrón de texto usando Operador $regex
+db.inventory.find({"item.description": { $regex: /line/ }})                 // $regex se usa con doble // para colocar el texto a utilizar
+
+
+// Por defecto $regex hace distinción de mayusculas y minusculas
+db.inventory.find({"item.description": { $regex: /LINE/ }})
+
+
+// Para que busque sin importar si esta escrito en mayusculas o minusculas colocamos una "i" al fianl de las diagonales
+db.inventory.find({ "item.description": { $regex: /LINE/i }})
+
+
+// Para decirle que solo muestre los registros con la palabra indicada al FINAL le colocamos el signo $ al final de la palabra a buscar, va a traer solo 2 Documents
+db.inventory.find({"item.description": { $regex: /line$/i }})
+
+
+// Para hacer una busqueda de palabras que esten el INICIO de la oración usamos el signo ^ antes de la palabra a buscar, hará match con solo un Document
+db.inventory.find({"item.description": { $regex: /^single/i}})
+
+
+// Para que $regex tome en cuenta los saltos de linea agregamos "m" (multiline) despues de las diagonales, este query en especifico nos devolvera 2 Documents
+db.inventory.find({"item.description": { $regex: /^s/im }})
