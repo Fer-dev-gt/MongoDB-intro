@@ -1,0 +1,13 @@
+use("platzi_store")
+
+// Vamos a eliminar los valores dentro del Array de "readings" que sean mayor o igual a 3
+db.iot.updateMany(
+  { sensor: "A001"},                  // query
+  { $pull: {                          // update
+    readings: { $gte: 3}
+  }
+})
+
+
+// Query usado en Mongo Compass
+// { tripduration: { $lte: 200}, usertype: "Subscriber"}
