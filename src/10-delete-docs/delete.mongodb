@@ -1,0 +1,12 @@
+use("platzi_store")
+
+// Borrando solo 1 Document
+db.products.deleteOne({ _id: 1})
+
+
+// Borrando varios Documents, los que cumplan con la condición establecida
+db.products.deleteMany({ price: 100})                                         // Borramos todos los Documents que tengan precio : 100
+
+
+// Borrando TODOS los Documents de la Collection sin importar condiciones
+db.products.drop()
