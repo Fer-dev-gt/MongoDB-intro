@@ -1,0 +1,49 @@
+// Haciendo consultas a Arrays y Subdocumentos
+use("sample_training")
+
+// Treamos el primer Document de la Collection
+db.trips.findOne()
+
+
+// Petición "normal" a SubDocuments
+db.trips.find({ "start station location.type": "Point" })             // Nombre del SubDocument : Valor a buscar
+
+
+// Consultamos al Document 'relationships', luego seleccionamos la primera posición "0" seleccionamos el SubDocument 'person' y le pedimos el "last_name"
+db.companies.find({
+  "relationships.0.person.last_name": "Zuckerberg"                    // Podemos colocar numeros en las consultas para seleccionar la posición de un Array
+}, {
+  name: 1,
+  relationships: 1
+})
+
+
+// Ahora buscamos a todos los Documents que tengan como CEO a alguien llamado "Mark"
+db.companies.find({
+  "relationships.0.person.first_name": "Mark"
+}, {
+  name: 1,
+  relationships: 1
+})
+
+
+// Contamos cuantas compañias las dirige una persona llamada "Mark"
+db.companies.find({
+  "relationships.0.person.first_name": "Mark"
+}, {
+  name: 1,
+  relationships: 1
+}).count()
+
+
+// Buscamos a todos los Mark que esten relacionados con una compañia en cualquier posición registrada
+db.companies.find({
+  relationships: {
+    $elemMatch: {
+      "person.first_name": "Mark"
+    }
+  }
+}, {
+  name: 1,
+  relationships: 1
+}).count()
