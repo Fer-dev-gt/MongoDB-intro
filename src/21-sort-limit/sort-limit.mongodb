@@ -1,0 +1,27 @@
+use("sample_training")
+
+
+// Muestra los datos sin orden establecido
+db.zips.find({ pop: { $gte: 100} })
+
+
+// Para ordenar los resultados podemos usar el método .sort(), vamos a ordenar de forma Ascendente
+db.zips
+  .find({ pop: { $gte: 100}})
+  .sort({ pop: 1 })                               // Cuando usamo 1 es igual a Ascendente y -1 Descendente
+
+
+// De forma Descendente
+db.zips
+  .find({ pop: { $gte: 100}})
+  .sort({ pop: -1 })   
+
+
+// Para limitar el número de Documents mostrado podemos usar el método .limit()
+db.zips
+  .find({ pop: { $gte: 100}})
+  .sort({ pop: -1})
+  .limit(2)                                       // Me va a traer solo los 2 Documents con mayor población
+
+
+

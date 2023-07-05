@@ -1,0 +1,31 @@
+// Usando skip para implementar técnica de Paginación 
+use("platzi_store")
+
+
+// Mostramos la primera pagina de los resultados,
+db.categories
+  .find()
+  .skip(0)                                                        // Le indicamos cuantos Documents se va a "saltar"
+  .limit(2)                                                       // Limitamos el número de Documents a mostrar
+
+
+// Mostramos la segunda página  
+db.categories
+  .find()
+  .skip(2)                
+  .limit(2) 
+
+
+// Mostrando mas Documents por página
+db.categories
+  .find()
+  .skip(4)                
+  .limit(4) 
+
+
+// Si llegamos al final de los resultado solamente mostrará hasta donde hayan registros 
+db.categories
+  .find()
+  .skip(8)                
+  .limit(4)   
+
