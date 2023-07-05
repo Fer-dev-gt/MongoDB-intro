@@ -1,0 +1,39 @@
+// Usando la Base de Datos de AirBnB
+use("sample_airbnb")
+
+
+// Mostrando las reviews de los hospedajes
+db.listingsAndReviews.find()
+
+
+// Mostrando los hospedajes que tiene Wifi (Forma simple y usual)
+db.listingsAndReviews.find({
+  amenities: "Wifi"
+}, {
+  price: 1,
+  amenities: 1
+})
+
+
+// Usando el sistema de "Aggregation Framework" usando el método ".aggregate()" vamos a realizar el mismo query de arriba
+// .aggregate() funcionan como "Pipelines" ej: [], [], []
+db.listingsAndReviews.aggregate([
+  { $match: { amenities: "Wifi" }},                                     // Para hacer busquedas en .aggregate() usamos Operator $match, estamos haciendo lo mismo a un .find()
+  { $project: { price: 1, amenities: 1 }}                               // Forma de hacer "Projection" en .aggregate(), estamos haciendo lo mismo a un .project()
+])
+
+
+// El "Aggregation Framework" funciona por capas y agrupaciones, asi que la salida de un Pipeline es la entrada de otro
+db.listingsAndReviews.aggregate([
+  { $match: { amenities: "Wifi" }},
+  { $project: { address: 1 }},
+  { $group: { _id: "$address.country"}}                                 // Mostramos los paises que tiene Wifi al hacer agrupaciones
+])
+
+
+// Ahora quiero saber el numero de hospedajes por pais que tienen Wifi
+db.listingsAndReviews.aggregate([
+  { $match: { amenities: "Wifi"}},
+  { $project: { address: 1}},
+  { $group: { _id: "$address.country", count: { $sum: 1} }}
+])
