@@ -1,0 +1,21 @@
+// Expresive operator ($expr) sirve para comparar valores del mismo documento.
+use("platzi_store")
+
+// Podemos hacer esto
+db.monthlyBudget.find({ spent: {$gte: 100} })
+
+
+// Hacemos la misma consulta de arriba pero con un Expresive Operator $expr
+db.monthlyBudget.find({
+  $expr: {
+    $gte: ["$spent", 100]                           // El "$spent" no quiere decir que "spent" sea un Operator si no que es el nombre del campo a tomar de referencia que se usa para seleccionarlo
+  }
+})
+
+
+// Cuando usamos el Operator $expr nos permite COMPARAR valores de varios campos
+db.monthlyBudget.find({
+  $expr: {
+    $gte: ["$spent", "$budget"]                     // Aca le digo que me muestre los Documents en donde el "spent" ha superado al "budget"
+  }
+})

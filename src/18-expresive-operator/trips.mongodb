@@ -1,0 +1,45 @@
+use("sample_training")
+
+
+// Usando $expr y $eq contesto ¿Cuantos viajes han terminado en el mismo lugar donde comenzaron
+db.trips.find({
+  $expr: {
+    $eq: ["$start station id", "$end station id"]           // Estoy comparando los valores de 2 campos
+  }
+}).count()
+
+
+// Le agregamos una condición extra el query de arriba con el Operator $and
+db.trips.find({
+  $expr: {                                                  // Cuando usamos Operator "expr" la sintaxis de los nombres de los campos tienen que tener el formato "$nameOfField"
+    $and: [
+      { $eq: ["$start station id", "$end station id"]},
+      { $gte: ["$tripduration", 1200] }
+    ]
+  }
+}).count()
+
+
+// Otra forma de hacer el mismo query #1
+db.trips.find({
+  tripduration: {
+    $gte: 1200
+  },
+  $expr: {
+    $eq: ["$start station id", "$end station id"]
+  }
+})
+
+
+// Otra forma de hacer el mismo query #2
+use("sample_training")
+db.trips.find({
+  $and: [
+    {$expr: {
+      $eq: ["$start station id", "$end station id"]
+    }},
+    {tripduration: {
+      $gte: 1200
+    }}
+  ] 
+}).count()
