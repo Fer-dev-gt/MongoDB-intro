@@ -1,0 +1,45 @@
+use("platzi_store")
+
+// Operator $in, sirve para Objetos, valores especificos y Arrays, nos sirve para definir valores que tienen que aparecer
+db.inventory.find({ qty: { $in: [20 ,25]}})
+
+
+// Busqueda dentro de un Array sin necesidad que sean numeros, simplemente tiene que tener minimo 1 de los valores especificados
+db.inventory.find({ tags: { $in: ["book", "electronics"]} })
+
+
+// Operator contrario a $in es $nin = not in, no tienen que tener ninguno de los número especificados
+db.inventory.find({ qty: { $nin: [20, 25]}})
+
+
+// Otro ejemplo de $nin, muestra los Documents que no tengan los ninguno de los valores definidos en el Array
+db.inventory.find({ tags: { $nin: ["book", "electronics"]} })
+
+
+// Buscando un valor en especifo dentro de un Array
+db.inventory.find({ tags: "book"})
+
+
+// Query en donde busco un Array directamente, OJO aca solo me mostrará los Documentas que tengan esos valores del Array EN EL MISMO ORDEN
+db.inventory.find({ tags: ["school", "book"]})
+
+
+// Al darle vuelta a los valores del Array de arriba, el query ya no encontrará match
+db.inventory.find({ tags: ["book", "school"]})
+
+
+// Operators que solo funcionan para Arrays como $all
+// Con $all ya no importa el orden en que escribamos el Array, simplemente busca que el Document tenga los valores dentro del Array, es como un AND
+db.inventory.find({ tags: { $all: ["book", "school"]} })
+
+
+// Usando el Operator $size, que simplemente busca que el Array tenga n elementos
+db.inventory.find({ tags: { $size: 2} })
+
+
+// Usando el Operator $elemMatch = Element Match, nos sirve cuando tenemos un Array con Objetos adentro, y queremos que uno de los SubDocuments del Document coincida con lo que buscamos
+db.survey.find({ results: { $elemMatch: { product: "xyz" }} })
+
+
+// Siendo más especificos con el $elemMatch al agregarle mas operadores como un $gte
+db.survey.find({ results: { $elemMatch: {product: "xyz", score: { $gte: 7 }} } })
