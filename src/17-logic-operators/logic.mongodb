@@ -1,0 +1,71 @@
+// Queries de Logic Operators
+use("sample_training")
+
+
+// Utilizando un AND de forma "implicita"
+db.inspections.find({ 
+  sector: "Tax Preparers - 891", 
+  result: "Unable to Locate"
+})
+
+
+db.inspections.find({ 
+  sector: "Tax Preparers - 891", 
+  result: "Unable to Locate"
+}).count()
+
+
+// Haciendo AND de forma explicita, con el Operator $and tenemos que poner los valores a buscar dentro de un Array [] y los valores en forma de objeto {}, ej: $and [{}, {}, {}]
+db.inspections.find({
+  $and: [
+    { sector: "Tax Preparers - 891"},
+    { result: "Unable to Locate"}
+  ]
+}).count()
+
+
+// Usando Operator $or, sintaxis $or [{}, {}, {}]
+db.inspections.find({
+  $or: [
+    { sector: "Tax Preparers - 891"},
+    { result: "Unable to Locate"}
+  ]
+}).count()
+
+
+// Usando Operator $nor, sintaxis $or [{}, {}, {}]
+db.inspections.find({
+  $nor: [
+    { sector: "Tax Preparers - 891"},
+    { result: "Unable to Locate"}
+  ]
+})
+
+
+// Podemos especificar con $nor todos los valores que no queremos que aparezcan en el mismo campo, tambien aplicamos una "Projection"
+db.inspections.find({
+  $nor: [
+    { result: "No Violation Issued"},
+    { result: "Unable to Locate"}
+  ]
+}, {
+  result: 1,
+  _id: 0
+})
+
+
+// Mismo query que el de arriba pero con Projection "explicito"
+db.inspections.find({
+  $nor:[
+    {result: "No Violation Issued"},
+    {result: "Unable to Locate"}
+  ]
+}).projection(
+  {result:1, _id:0}
+)
+
+
+// Operator $not, sintaxis $not {}, tambien usamos Regular Expression
+db.inspections.find({
+  result: { $not: {$regex: /Unable to Locate/} }
+})

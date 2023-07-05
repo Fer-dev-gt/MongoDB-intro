@@ -1,0 +1,38 @@
+// Realizando queries complejos usando uno o mas Logic Operators
+use("sample_training")
+
+db.routes.find({ airplane: "E70"})
+
+
+// Cuantos vuelos han llegado o despegado de Bogota?
+db.routes.find({ 
+  $or: [
+    { dst_airport: "BOG"},
+    { src_airport: "BOG"}
+  ]
+}).count()
+
+
+// Uniendo 2 consultas/queries de arriba usando $and y $or
+// ¿Cuanto vuelos ha hecho el avión E70 desde o para Bogota
+db.routes.find({                                  
+  $and: [
+    { airplane: "E70"},
+    {
+      $or: [
+        { dst_airport: "BOG"},
+        { src_airport: "BOG"}
+      ]
+    }
+  ]
+}).count()
+
+
+// Mismo query que el anterior pero con un $and "implicito"
+db.routes.find({ 
+  airplane: "E70",
+  $or: [
+    { dst_airport: "BOG" },
+    { src_airport: "BOG" }
+  ]
+}).count()
