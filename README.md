@@ -15,3 +15,7 @@ Here I created a Documents based DataBase to learn how to do basic and advanced 
 
 ## Some data returned by the queries executed in this repo
 <img width="326" alt="Screenshot 2023-07-06 at 00 22 21" src="https://github.com/Fer-dev-gt/MongoDB-intro/assets/119085740/ed087581-abac-42ef-84d3-4f3b95e97d49">
+
+
+## The "sample_training" takes lesss than 500MB of storage
+<img width="435" alt="Screenshot 2023-07-06 at 17 54 14" src="https://github.com/Fer-dev-gt/MongoDB-intro/assets/119085740/8db849ee-2b97-4065-9431-d1bd57aa1020">
